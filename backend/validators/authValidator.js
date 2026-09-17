@@ -32,4 +32,27 @@ const validateSignUp = (data) => {
     return null;
 }
 
-module.exports = validateSignUp;
+const validateLogin = (data) => {
+    const {email, password} = data;
+    if(!email || !password){
+        return "Email and password are required";
+    }
+
+    if(!isValidEmail(email)){
+        return "Invalid email format";
+    }
+
+    if(email.length > 254){
+        return "Email is too long";
+    }
+
+    if(password.length < 8 || password.length > 128){
+        return "Password must be between 8 and 128 characters";
+    }
+
+    return null;
+}
+module.exports = {
+    validateSignUp,
+    validateLogin
+}
