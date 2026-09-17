@@ -59,12 +59,10 @@ const clientSchema = new mongoose.Schema(
     }
 );
 
-clientSchema.pre("validate", function(next) {
+clientSchema.pre("validate", function() {
     if(!this.email && !this.phone){
-        return next(new Error("At least one of email or phone is required"));
+        return new Error("At least one of email or phone is required");
     }
-
-    next();
 });
 
 const Client = mongoose.model("Client", clientSchema);
