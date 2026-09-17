@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser")
 const connectDB = require("./config/db")
 const authRoutes = require("./routes/authRoutes")
 const clientRoutes = require("./routes/clientRoutes")
+const dashboardRoutes = require("./routes/dashboardRoutes");
 
 dotenv.config()
 
@@ -21,6 +22,7 @@ app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/clients", clientRoutes);
+app.use("/api/dashboard", dashboardRoutes)
 
 const startServer = async () => {
     await connectDB();
