@@ -155,7 +155,17 @@ const login = async (req, res) => {
     }
 }
 
+const logout = async (req, res) => {
+    res.clearCookie("token", {
+        httpOnly : true,
+        sameSite : "lax"
+    });
+
+    return res.status(204).send()
+}
+
 module.exports = {
     signup,
-    login
+    login,
+    logout
 };
