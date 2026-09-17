@@ -3,12 +3,12 @@ const cors = require("cors")
 const dotenv = require("dotenv")
 const cookieParser = require("cookie-parser")
 
+dotenv.config()
 const connectDB = require("./config/db")
 const authRoutes = require("./routes/authRoutes")
 const clientRoutes = require("./routes/clientRoutes")
 const dashboardRoutes = require("./routes/dashboardRoutes");
 
-dotenv.config()
 
 const app = express()
 
