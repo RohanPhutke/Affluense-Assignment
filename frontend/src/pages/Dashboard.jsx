@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import dashboardService from "../services/dashboardService";
 import authService from "../services/authService";
 import clientService from "../services/clientService";
@@ -20,12 +21,18 @@ function Dashboard() {
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const loadDashboard = async () => {
       try {
         const data = await dashboardService.getInsights();
         setInsights(data);
       } catch (error) {
+        if (error.status == 401) {
+          navigate("/login", { replace: true });
+          return;
+        }
         setError(error.message);
       } finally {
         setLoading(false);
@@ -38,7 +45,7 @@ function Dashboard() {
   const handleLogout = async () => {
     try {
       await authService.logout();
-      window.location.href = "/login";
+      navigate("/login", { replace: true });
     } catch (error) {
       console.error("Logout failed:", error);
     }
@@ -75,7 +82,7 @@ function Dashboard() {
 
       setDeletingClient(null);
       setSelectedClient(null);
-      setRefreshKey((current) => current+1);
+      setRefreshKey((current) => current + 1);
     } catch (error) {
       console.error("Delete failed:", error);
     } finally {
@@ -195,7 +202,10 @@ function Dashboard() {
               + Add Client
             </button>
           </div>
-          <ClientTable onClientClick={handleClientClick}refreshKey={refreshKey} />
+          <ClientTable
+            onClientClick={handleClientClick}
+            refreshKey={refreshKey}
+          />
         </div>
       </main>
 
@@ -204,7 +214,7 @@ function Dashboard() {
           onClose={() => setShowAddClient(false)}
           onSuccess={() => {
             setShowAddClient(false);
-            setRefreshKey((current) => current+1);
+            setRefreshKey((current) => current + 1);
           }}
         />
       )}
