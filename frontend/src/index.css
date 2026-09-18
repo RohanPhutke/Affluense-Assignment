@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@theme {
+    --font-display: "Montserrat", sans-serif;
+}
+
+body {
+    margin: 0;
+    font-family: "Montserrat", sans-serif;
+}
