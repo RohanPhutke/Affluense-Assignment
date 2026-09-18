@@ -8,6 +8,7 @@ import ClientTable from "../components/ClientTable";
 import ClientFormModal from "../components/ClientFormModal";
 import ClientDetailsModal from "../components/ClientDetailsModal";
 import DeleteConfirmModal from "../components/DeleteConfirmModal";
+import CategoryDistributionChart from "../components/CategoryDistributionChart";
 
 function Dashboard() {
   const [insights, setInsights] = useState(null);
@@ -144,44 +145,41 @@ function Dashboard() {
           </p>
         </div>
 
-        <div className="grid gap-5 md:grid-cols-3">
-          <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-            <p className="text-sm font-medium text-slate-500">Total Clients</p>
-            <p className="mt-3 text-3xl font-bold text-slate-900">
-              {insights.totalClients}
-            </p>
-          </div>
+        <div className="mt-8 grid gap-5 lg:grid-cols-2">
+          <div className="flex flex-col gap-5">
+            <div className="flex flex-1 flex-col justify-center rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+              <p className="text-sm font-medium text-slate-500">
+                Total Clients
+              </p>
 
-          <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-            <p className="text-sm font-medium text-slate-500">HNI / UHNI</p>
+              <p className="mt-3 text-4xl font-bold text-slate-900">
+                {insights.totalClients}
+              </p>
+            </div>
 
-            <div className="mt-3 flex items-end gap-6">
-              <div>
-                <p className="text-2xl font-bold text-slate-900">
-                  {insights.categoryDistribution.HNI}
-                </p>
+            <div className="flex flex-1 flex-col justify-center rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+              <p className="text-sm font-medium text-slate-500">
+                Aggregate Net Worth
+              </p>
 
-                <p className="mt-1 text-xs text-slate-500">HNI</p>
-              </div>
-
-              <div>
-                <p className="text-2xl font-bold text-blue-700">
-                  {insights.categoryDistribution.UHNI}
-                </p>
-
-                <p className="mt-1 text-xs text-slate-500">UHNI</p>
-              </div>
+              <p className="mt-3 text-3xl font-bold text-slate-900">
+                {formatNetWorth(insights.aggregateNetWorth)}
+              </p>
             </div>
           </div>
 
           <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-            <p className="text-sm font-medium text-slate-500">
-              Aggregate Net Worth
+            <h3 className="text-lg font-semibold text-slate-900">
+              Client Distribution
+            </h3>
+
+            <p className="mt-1 text-sm text-slate-500">
+              Distribution across HNI and UHNI categories
             </p>
 
-            <p className="mt-3 text-3xl font-bold text-slate-900">
-              {formatNetWorth(insights.aggregateNetWorth)}
-            </p>
+            <CategoryDistributionChart
+              distribution={insights.categoryDistribution}
+            />
           </div>
         </div>
 
