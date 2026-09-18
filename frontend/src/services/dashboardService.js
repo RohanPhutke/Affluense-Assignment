@@ -9,9 +9,14 @@ const getInsights = async () => {
     const data = await response.json();
 
     if(!response.ok){
-        throw new Error(
-            data.error?.message || `Failed to fetch insights (${response.status})`
-        );
+       const error = new Error(
+         data.error?.message ||
+         `Failed to fetch insights (${response.status})`
+       );
+
+       error.status = response.status;
+
+       throw error;
     }
 
     return data;

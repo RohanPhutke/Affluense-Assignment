@@ -260,6 +260,7 @@ function ClientFormModal({ client = null, onClose, onSuccess }) {
                 value={form.netWorthAmount}
                 onChange={handleChange}
                 placeholder="50"
+                step="any"
                 className="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
               />
 

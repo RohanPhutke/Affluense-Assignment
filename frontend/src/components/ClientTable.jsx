@@ -6,7 +6,7 @@ import clientService from "../services/clientService";
 
 const modules = [AllCommunityModule];
 
-function ClientTable({ onClientClick }) {
+function ClientTable({ onClientClick, refreshKey }) {
   const [clients, setClients] = useState([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
@@ -109,7 +109,7 @@ function ClientTable({ onClientClick }) {
     };
 
     loadClients();
-  }, [search, category, sort, page, limit]);
+  }, [search, category, sort, page, limit, refreshKey]);
 
   const handleSearchChange = (event) => {
     setSearch(event.target.value);

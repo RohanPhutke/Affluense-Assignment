@@ -18,6 +18,7 @@ function Dashboard() {
   const [editingClient, setEditingClient] = useState(null);
   const [deletingClient, setDeletingClient] = useState(null);
   const [deleteLoading, setDeleteLoading] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
     const loadDashboard = async () => {
@@ -32,7 +33,7 @@ function Dashboard() {
     };
 
     loadDashboard();
-  }, []);
+  }, [refreshKey]);
 
   const handleLogout = async () => {
     try {
@@ -74,8 +75,7 @@ function Dashboard() {
 
       setDeletingClient(null);
       setSelectedClient(null);
-
-      window.location.reload();
+      setRefreshKey((current) => current+1);
     } catch (error) {
       console.error("Delete failed:", error);
     } finally {
@@ -195,7 +195,7 @@ function Dashboard() {
               + Add Client
             </button>
           </div>
-          <ClientTable onClientClick={handleClientClick} />
+          <ClientTable onClientClick={handleClientClick}refreshKey={refreshKey} />
         </div>
       </main>
 
@@ -204,7 +204,7 @@ function Dashboard() {
           onClose={() => setShowAddClient(false)}
           onSuccess={() => {
             setShowAddClient(false);
-            window.location.reload();
+            setRefreshKey((current) => current+1);
           }}
         />
       )}
@@ -224,7 +224,8 @@ function Dashboard() {
           onClose={() => setEditingClient(null)}
           onSuccess={() => {
             setEditingClient(null);
-            window.location.reload();
+            setSelectedClient(null);
+            setRefreshKey((current) => current + 1);
           }}
         />
       )}
