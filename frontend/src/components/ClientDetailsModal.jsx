@@ -21,67 +21,84 @@ function ClientDetailsModal({ client, onClose, onEdit, onDelete }) {
           </button>
         </div>
 
-        <div className="space-y-4">
-          <div>
-            <p className="text-xs font-medium text-slate-500">Name</p>
-            <p className="mt-1 text-sm text-slate-900">{client.name}</p>
-          </div>
+        <div className="grid grid-cols-2 gap-x-10 gap-y-5">
+          <div className="col-span-2">
+            <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
+              Name
+            </p>
 
-          <div className="grid grid-cols-2 gap-x-8 gap-y-5">
-            <div>
-              <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
-                Email
-              </p>
-
-              <p className="mt-1 text-sm font-medium text-slate-900">
-                {client.email || "-"}
-              </p>
-            </div>
-
-            <div>
-              <p className="text-xs font-medium text-slate-500">Phone</p>
-              <p className="mt-1 text-sm text-slate-900">
-                {client.phone || "-"}
-              </p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <p className="text-xs font-medium text-slate-500">Net Worth</p>
-              <p className="mt-1 text-sm font-semibold text-slate-900">
-                {formatNetWorth(client.netWorth)}
-              </p>
-            </div>
-
-            <div>
-              <p className="text-xs font-medium text-slate-500">Category</p>
-              <p className="mt-1 text-sm text-slate-900">{client.category}</p>
-            </div>
+            <p className="mt-1 text-sm font-medium text-slate-900">
+              {client.name}
+            </p>
           </div>
 
           <div>
-            <p className="text-xs font-medium text-slate-500">
+            <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
+              Email
+            </p>
+
+            <p className="mt-1 text-sm font-medium text-slate-900">
+              {client.email || "-"}
+            </p>
+          </div>
+
+          <div>
+            <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
+              Phone
+            </p>
+
+            <p className="mt-1 text-sm font-medium text-slate-900">
+              {client.phone || "-"}
+            </p>
+          </div>
+
+          <div>
+            <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
+              Net Worth
+            </p>
+
+            <p className="mt-1 text-sm font-bold text-slate-900">
+              {formatNetWorth(client.netWorth)}
+            </p>
+          </div>
+
+          <div>
+            <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
+              Category
+            </p>
+
+            <span className="mt-1 inline-flex rounded-full bg-blue-100 px-2.5 py-1 text-xs font-semibold">
+              {client.category}
+            </span>
+          </div>
+
+          <div>
+            <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
               Primary Asset Class
             </p>
-            <p className="mt-1 text-sm text-slate-900">
+
+            <p className="mt-1 text-sm font-medium text-slate-900">
               {client.primaryAssetClass}
             </p>
           </div>
 
           <div>
-            <p className="text-xs font-medium text-slate-500">Interests</p>
-            <p className="mt-1 text-sm text-slate-900">
-              {client.interests?.length ? client.interests.join(", ") : "-"}
+            <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
+              Onboarding Date
+            </p>
+
+            <p className="mt-1 text-sm font-medium text-slate-900">
+              {formatDate(client.onboardingDate)}
             </p>
           </div>
 
-          <div>
-            <p className="text-xs font-medium text-slate-500">
-              Onboarding Date
+          <div className="col-span-2">
+            <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
+              Interests
             </p>
-            <p className="mt-1 text-sm text-slate-900">
-              {formatDate(client.onboardingDate)}
+
+            <p className="mt-1 text-sm font-medium text-slate-900">
+              {client.interests?.length ? client.interests.join(", ") : "-"}
             </p>
           </div>
         </div>
