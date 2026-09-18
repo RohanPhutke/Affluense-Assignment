@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import dashboardService from "../services/dashboardService";
 import authService from "../services/authService";
 import ClientTable from "../components/ClientTable";
+import ClientFormModal from "../components/ClientFormModal";
 
 function Dashboard() {
   const [insights, setInsights] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [showAddClient, setShowAddClient] = useState(false);
 
   useEffect(() => {
     const loadDashboard = async () => {
@@ -137,13 +139,26 @@ function Dashboard() {
               </p>
             </div>
 
-            <button className="rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700">
+            <button
+              onClick={() => setShowAddClient(true)}
+              className="rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700"
+            >
               + Add Client
             </button>
           </div>
           <ClientTable />
         </div>
       </main>
+
+      {showAddClient && (
+        <ClientFormModal
+          onClose={() => setShowAddClient(false)}
+          onSuccess={() => {
+            setShowAddClient(false);
+            window.location.reload();
+          }}
+        />
+      )}
     </div>
   );
 }
