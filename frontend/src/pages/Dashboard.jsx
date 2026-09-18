@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import dashboardService from "../services/dashboardService";
 import authService from "../services/authService";
+import ClientTable from "../components/ClientTable";
 
 function Dashboard() {
   const [insights, setInsights] = useState(null);
@@ -140,12 +141,7 @@ function Dashboard() {
               + Add Client
             </button>
           </div>
-
-          <div className="mt-6 flex h-80 items-center justify-center rounded-lg border border-dashed border-slate-300">
-            <p className="text-sm text-slate-400">
-              Client table here
-            </p>
-          </div>
+          <ClientTable />
         </div>
       </main>
     </div>
