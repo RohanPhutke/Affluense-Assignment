@@ -1,14 +1,23 @@
 import { useEffect, useState } from "react";
 import dashboardService from "../services/dashboardService";
 import authService from "../services/authService";
+import clientService from "../services/clientService";
+
 import ClientTable from "../components/ClientTable";
 import ClientFormModal from "../components/ClientFormModal";
+import ClientDetailsModal from "../components/ClientDetailsModal";
+import DeleteConfirmModal from "../components/DeleteConfirmModal";
 
 function Dashboard() {
   const [insights, setInsights] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [showAddClient, setShowAddClient] = useState(false);
+  const [selectedClient, setSelectedClient] = useState(null);
+  const [loadingClient, setLoadingClient] = useState(false);
+  const [editingClient, setEditingClient] = useState(null);
+  const [deletingClient, setDeletingClient] = useState(null);
+  const [deleteLoading, setDeleteLoading] = useState(false);
 
   useEffect(() => {
     const loadDashboard = async () => {
@@ -31,6 +40,46 @@ function Dashboard() {
       window.location.href = "/login";
     } catch (error) {
       console.error("Logout failed:", error);
+    }
+  };
+
+  const handleEditClient = (client) => {
+    setSelectedClient(null);
+    setEditingClient(client);
+  };
+
+  const handleDeleteClick = (client) => {
+    setSelectedClient(null);
+    setDeletingClient(client);
+  };
+
+  const handleClientClick = async (client) => {
+    setLoadingClient(true);
+
+    try {
+      const data = await clientService.getClientById(client._id);
+      setSelectedClient(data.client);
+    } catch (error) {
+      console.error("Failed to fetch client:", error);
+    } finally {
+      setLoadingClient(false);
+    }
+  };
+
+  const handleDeleteClient = async () => {
+    setDeleteLoading(true);
+
+    try {
+      await clientService.deleteClient(deletingClient._id);
+
+      setDeletingClient(null);
+      setSelectedClient(null);
+
+      window.location.reload();
+    } catch (error) {
+      console.error("Delete failed:", error);
+    } finally {
+      setDeleteLoading(false);
     }
   };
 
@@ -146,7 +195,7 @@ function Dashboard() {
               + Add Client
             </button>
           </div>
-          <ClientTable />
+          <ClientTable onClientClick={handleClientClick} />
         </div>
       </main>
 
@@ -158,6 +207,43 @@ function Dashboard() {
             window.location.reload();
           }}
         />
+      )}
+
+      {selectedClient && (
+        <ClientDetailsModal
+          client={selectedClient}
+          onClose={() => setSelectedClient(null)}
+          onEdit={() => handleEditClient(selectedClient)}
+          onDelete={() => handleDeleteClick(selectedClient)}
+        />
+      )}
+
+      {editingClient && (
+        <ClientFormModal
+          client={editingClient}
+          onClose={() => setEditingClient(null)}
+          onSuccess={() => {
+            setEditingClient(null);
+            window.location.reload();
+          }}
+        />
+      )}
+
+      {deletingClient && (
+        <DeleteConfirmModal
+          client={deletingClient}
+          loading={deleteLoading}
+          onClose={() => setDeletingClient(null)}
+          onConfirm={handleDeleteClient}
+        />
+      )}
+
+      {loadingClient && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20">
+          <div className="rounded-lg bg-white px-5 py-3 text-sm shadow-lg">
+            Loading client...
+          </div>
+        </div>
       )}
     </div>
   );

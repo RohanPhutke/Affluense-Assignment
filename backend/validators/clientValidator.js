@@ -29,9 +29,15 @@ const validateClient = (data) => {
         return "Name must be between 2 and 100 characters";
     }
 
-    const normalizedEmail = email.trim().toLowerCase();
+    const normalizedEmail =
+        typeof email === "string"
+            ? email.trim().toLowerCase()
+            : "";
 
-    const normalizedPhone = phone.trim();
+    const normalizedPhone =
+        typeof phone === "string"
+            ? phone.trim()
+            : "";
 
     if (!normalizedEmail && !normalizedPhone) {
         return "At least one of email or phone is required";
@@ -56,6 +62,7 @@ const validateClient = (data) => {
     }
 
     if (
+        typeof primaryAssetClass !== "string" ||
         primaryAssetClass.trim().length === 0
     ) {
         return "Primary asset class is required";
@@ -176,7 +183,7 @@ const validateClientUpdate = (data) => {
         }
     }
 
-    if (data.primaryAssetClass !== undefined) {
+    if ( typeof primaryAssetClass !== "string" || data.primaryAssetClass !== undefined) {
         if (
             data.primaryAssetClass.trim().length === 0
         ) {

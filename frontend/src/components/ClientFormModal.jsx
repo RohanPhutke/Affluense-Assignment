@@ -2,20 +2,49 @@ import { useState } from "react";
 
 import clientService from "../services/clientService";
 
-const initialForm = {
-  name: "",
-  email: "",
-  phone: "",
-  netWorthAmount: "",
-  netWorthUnit: "Million",
-  category: "",
-  primaryAssetClass: "",
-  interests: "",
-  onboardingDate: "",
+const getNetWorthInput = (value) => {
+  if (value >= 1000000000) {
+    return {
+      amount: value / 1000000000,
+      unit: "Billion",
+    };
+  }
+
+  if (value >= 1000000) {
+    return {
+      amount: value / 1000000,
+      unit: "Million",
+    };
+  }
+
+  return {
+    amount: value / 1000,
+    unit: "Thousand",
+  };
 };
 
-function ClientFormModal({ onClose, onSuccess }) {
-  const [form, setForm] = useState(initialForm);
+function ClientFormModal({ client = null, onClose, onSuccess }) {
+  const netWorthInput = client
+    ? getNetWorthInput(client.netWorth)
+    : {
+        amount: "",
+        unit: "Million",
+      };
+
+  const [form, setForm] = useState({
+    name: client?.name || "",
+    email: client?.email || "",
+    phone: client?.phone || "",
+    netWorthAmount: client ? client.netWorth / 1000000 : "",
+    netWorthUnit: netWorthInput.unit,
+    category: client?.category || "",
+    primaryAssetClass: client?.primaryAssetClass || "",
+    interests: client?.interests?.join(", ") || "",
+    onboardingDate: client?.onboardingDate
+      ? client.onboardingDate.slice(0, 10)
+      : "",
+  });
+
   const [errors, setErrors] = useState({});
   const [serverError, setServerError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -120,8 +149,11 @@ function ClientFormModal({ onClose, onSuccess }) {
     setLoading(true);
 
     try {
-      await clientService.createClient(clientData);
-
+      if (client) {
+        await clientService.updateClient(client._id, clientData);
+      } else {
+        await clientService.createClient(clientData);
+      }
       onSuccess();
     } catch (error) {
       setServerError(error.message);
@@ -135,7 +167,9 @@ function ClientFormModal({ onClose, onSuccess }) {
       <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-xl bg-white p-6 shadow-xl">
         <div className="mb-6 flex items-start justify-between">
           <div>
-            <h2 className="text-xl font-bold text-slate-900">Add Client</h2>
+            <h2 className="text-xl font-bold text-slate-900">
+              {client ? "Update Client" : "Add Client"}
+            </h2>
 
             <p className="mt-1 text-sm text-slate-500">
               Add a new client to your portfolio
@@ -350,7 +384,13 @@ function ClientFormModal({ onClose, onSuccess }) {
               disabled={loading}
               className="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {loading ? "Adding..." : "Add Client"}
+              {loading
+                ? client
+                  ? "Updating..."
+                  : "Adding..."
+                : client
+                  ? "Update Client"
+                  : "Add Client"}
             </button>
           </div>
         </form>

@@ -6,7 +6,7 @@ import clientService from "../services/clientService";
 
 const modules = [AllCommunityModule];
 
-function ClientTable() {
+function ClientTable({ onClientClick }) {
   const [clients, setClients] = useState([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
@@ -174,6 +174,7 @@ function ClientTable() {
             modules={modules}
             rowData={clients}
             columnDefs={columnDefs}
+            onRowClicked={(event) => onClientClick(event.data)}
             defaultColDef={{
               sortable: false,
               resizable: true,
