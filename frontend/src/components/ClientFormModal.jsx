@@ -163,11 +163,11 @@ function ClientFormModal({ client = null, onClose, onSuccess }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
-      <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-xl bg-white p-6 shadow-xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/40 px-4 py-6 backdrop-blur-[2px]">
+      <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-white/60 bg-white p-7 shadow-2xl">
         <div className="mb-6 flex items-start justify-between">
           <div>
-            <h2 className="text-xl font-bold text-slate-900">
+            <h2 className="text-2xl font-bold tracking-tight text-slate-900">
               {client ? "Update Client" : "Add Client"}
             </h2>
 
@@ -179,9 +179,9 @@ function ClientFormModal({ client = null, onClose, onSuccess }) {
           <button
             type="button"
             onClick={onClose}
-            className="text-xl text-slate-400 hover:text-slate-700 cursor-pointer"
+            className="flex h-8 w-8 items-center justify-center rounded-full text-slate-400 transition hover:bg-slate-100 hover:text-slate-700 cursor-pointer"
           >
-            ×
+            <span className="text-lg leading-none">×</span>
           </button>
         </div>
 

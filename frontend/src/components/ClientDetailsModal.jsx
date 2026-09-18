@@ -1,7 +1,6 @@
-import { formatNetWorth , formatDate} from "../utils/formatters";
+import { formatNetWorth, formatDate } from "../utils/formatters";
 
 function ClientDetailsModal({ client, onClose, onEdit, onDelete }) {
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
       <div className="w-full max-w-lg rounded-xl bg-white p-6 shadow-xl">
@@ -16,7 +15,7 @@ function ClientDetailsModal({ client, onClose, onEdit, onDelete }) {
 
           <button
             onClick={onClose}
-            className="text-xl text-slate-400 hover:text-slate-700"
+            className="text-xl text-slate-400 hover:text-slate-700 cursor-pointer"
           >
             ×
           </button>
@@ -28,10 +27,13 @@ function ClientDetailsModal({ client, onClose, onEdit, onDelete }) {
             <p className="mt-1 text-sm text-slate-900">{client.name}</p>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-x-8 gap-y-5">
             <div>
-              <p className="text-xs font-medium text-slate-500">Email</p>
-              <p className="mt-1 text-sm text-slate-900">
+              <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
+                Email
+              </p>
+
+              <p className="mt-1 text-sm font-medium text-slate-900">
                 {client.email || "-"}
               </p>
             </div>
