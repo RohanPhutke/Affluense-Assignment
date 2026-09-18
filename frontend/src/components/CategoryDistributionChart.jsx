@@ -14,7 +14,7 @@ function CategoryDistributionChart({ distribution }) {
     ];
 
     return (
-        <div className="h-[280px] w-full">
+        <div className="flex h-[280px] w-full items-center justify-center">
             <Chart
                 options={{
                     chart: {

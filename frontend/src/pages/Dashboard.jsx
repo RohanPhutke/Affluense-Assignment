@@ -94,7 +94,6 @@ function Dashboard() {
     }
   };
 
-
   if (loading) {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
@@ -114,19 +113,41 @@ function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <nav className="border-b border-slate-200 bg-white">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/60 to-slate-100">
+      <nav className="top-0 z-40 border-b border-slate-200/80 bg-white/90 backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <div>
-            <h1 className="text-xl font-bold text-blue-900">Client Insights</h1>
+          <div className="flex items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-600 shadow-sm">
+              <span className="text-sm font-bold text-white">CI</span>
+            </div>
 
-            <p className="text-xs text-slate-500">Wealth Advisor Dashboard</p>
+            <div>
+              <h1 className="text-lg font-bold tracking-tight text-slate-900">
+                Client Insights
+              </h1>
+
+              <p className="text-xs text-slate-500">Wealth Advisor Dashboard</p>
+            </div>
           </div>
 
           <button
             onClick={handleLogout}
-            className="rounded-lg px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900 cursor-pointer"
+            className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3.5 py-2 text-sm font-medium text-slate-600 shadow-sm transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900"
           >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.8}
+              stroke="currentColor"
+              className="h-4 w-4"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6A2.25 2.25 0 0 0 5.25 5.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3-3H9.75m0 0 3-3m-3 3 3 3"
+              />
+            </svg>
             Logout
           </button>
         </div>
@@ -134,10 +155,14 @@ function Dashboard() {
 
       <main className="mx-auto max-w-7xl px-6 py-8">
         <div className="mb-8">
-          <h2 className="text-2xl font-bold text-slate-900">Dashboard</h2>
+          <div className="flex items-center gap-2">
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900">
+              Dashboard
+            </h2>
+          </div>
 
-          <p className="mt-1 text-sm text-slate-500">
-            Overview of your client portfolio
+          <p className="mt-2 text-sm text-slate-500">
+            A quick view of your client portfolio and wealth distribution.
           </p>
         </div>
 
@@ -148,8 +173,12 @@ function Dashboard() {
                 Total Clients
               </p>
 
-              <p className="mt-3 text-4xl font-bold text-slate-900">
+              <p className="mt-2 text-4xl font-bold tracking-tight text-slate-900">
                 {insights.totalClients}
+              </p>
+
+              <p className="mt-2 text-xs text-slate-400">
+                Active clients in your portfolio
               </p>
             </div>
 
@@ -158,13 +187,17 @@ function Dashboard() {
                 Aggregate Net Worth
               </p>
 
-              <p className="mt-3 text-3xl font-bold text-slate-900">
+              <p className="mt-2 text-3xl font-bold tracking-tight text-slate-900">
                 {formatNetWorth(insights.aggregateNetWorth)}
+              </p>
+
+              <p className="mt-2 text-xs text-slate-400">
+                Combined portfolio value
               </p>
             </div>
           </div>
 
-          <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
             <h3 className="text-lg font-semibold text-slate-900">
               Client Distribution
             </h3>
