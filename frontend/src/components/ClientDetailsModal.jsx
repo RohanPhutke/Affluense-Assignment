@@ -1,15 +1,6 @@
-function ClientDetailsModal({ client, onClose, onEdit, onDelete }) {
-  const formatNetWorth = (value) => {
-    return new Intl.NumberFormat("en-IN", {
-      style: "currency",
-      currency: "INR",
-      maximumFractionDigits: 0,
-    }).format(value || 0);
-  };
+import { formatNetWorth , formatDate} from "../utils/formatters";
 
-  const formatDate = (value) => {
-    return new Date(value).toLocaleDateString("en-IN");
-  };
+function ClientDetailsModal({ client, onClose, onEdit, onDelete }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
@@ -96,14 +87,14 @@ function ClientDetailsModal({ client, onClose, onEdit, onDelete }) {
         <div className="mt-6 flex justify-end gap-3 border-t border-slate-200 pt-5">
           <button
             onClick={onDelete}
-            className="rounded-lg bg-red-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-red-700"
+            className="rounded-lg bg-red-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-red-700 cursor-pointer"
           >
             Delete
           </button>
 
           <button
             onClick={onEdit}
-            className="rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-blue-700"
+            className="rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 cursor-pointer"
           >
             Update
           </button>

@@ -179,6 +179,7 @@ function ClientTable({ onClientClick, refreshKey }) {
               sortable: false,
               resizable: true,
             }}
+            rowClass="cursor-pointer"
           />
         )}
       </div>
@@ -205,7 +206,7 @@ function ClientTable({ onClientClick, refreshKey }) {
             <button
               disabled={page === 1}
               onClick={() => setPage((current) => current - 1)}
-              className="rounded-lg border border-slate-300 px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-40"
+              className="rounded-lg border border-slate-300 px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-40 cursor-pointer"
             >
               Previous
             </button>
@@ -217,7 +218,7 @@ function ClientTable({ onClientClick, refreshKey }) {
             <button
               disabled={page === pagination.totalPages}
               onClick={() => setPage((current) => current + 1)}
-              className="rounded-lg border border-slate-300 px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-40"
+              className="rounded-lg border border-slate-300 px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-40 cursor-pointer"
             >
               Next
             </button>

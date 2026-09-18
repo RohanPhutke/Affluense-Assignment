@@ -179,7 +179,7 @@ function ClientFormModal({ client = null, onClose, onSuccess }) {
           <button
             type="button"
             onClick={onClose}
-            className="text-xl text-slate-400 hover:text-slate-700"
+            className="text-xl text-slate-400 hover:text-slate-700 cursor-pointer"
           >
             ×
           </button>
@@ -375,7 +375,7 @@ function ClientFormModal({ client = null, onClose, onSuccess }) {
             <button
               type="button"
               onClick={onClose}
-              className="rounded-lg border border-slate-300 px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+              className="rounded-lg border border-slate-300 px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50 cursor-pointer"
             >
               Cancel
             </button>
@@ -383,7 +383,7 @@ function ClientFormModal({ client = null, onClose, onSuccess }) {
             <button
               type="submit"
               disabled={loading}
-              className="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+              className="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer"
             >
               {loading
                 ? client

@@ -14,7 +14,7 @@ function DeleteConfirmModal({ client, onClose, onConfirm, loading }) {
           <button
             onClick={onClose}
             disabled={loading}
-            className="rounded-lg border border-slate-300 px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+            className="rounded-lg border border-slate-300 px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50 cursor-pointer"
           >
             Cancel
           </button>
@@ -22,7 +22,7 @@ function DeleteConfirmModal({ client, onClose, onConfirm, loading }) {
           <button
             onClick={onConfirm}
             disabled={loading}
-            className="rounded-lg bg-red-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-60"
+            className="rounded-lg bg-red-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer"
           >
             {loading ? "Deleting..." : "Delete"}
           </button>

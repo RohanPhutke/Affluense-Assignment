@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import dashboardService from "../services/dashboardService";
 import authService from "../services/authService";
 import clientService from "../services/clientService";
@@ -9,6 +10,8 @@ import ClientFormModal from "../components/ClientFormModal";
 import ClientDetailsModal from "../components/ClientDetailsModal";
 import DeleteConfirmModal from "../components/DeleteConfirmModal";
 import CategoryDistributionChart from "../components/CategoryDistributionChart";
+
+import { formatNetWorth } from "../utils/formatters";
 
 function Dashboard() {
   const [insights, setInsights] = useState(null);
@@ -91,13 +94,6 @@ function Dashboard() {
     }
   };
 
-  const formatNetWorth = (value) => {
-    return new Intl.NumberFormat("en-IN", {
-      style: "currency",
-      currency: "INR",
-      maximumFractionDigits: 0,
-    }).format(value || 0);
-  };
 
   if (loading) {
     return (
@@ -129,7 +125,7 @@ function Dashboard() {
 
           <button
             onClick={handleLogout}
-            className="rounded-lg px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
+            className="rounded-lg px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900 cursor-pointer"
           >
             Logout
           </button>
@@ -195,7 +191,7 @@ function Dashboard() {
 
             <button
               onClick={() => setShowAddClient(true)}
-              className="rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700"
+              className="rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 cursor-pointer"
             >
               + Add Client
             </button>
