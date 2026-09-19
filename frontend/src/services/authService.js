@@ -13,12 +13,17 @@ const login = async (email, password) => {
     }),
   });
 
-  const data = response.json();
+  const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(
-      data.error?.message || `Login failed (${response.status})`
+    const error = new Error(
+      data.error?.message || `Unable to login`
     );
+
+    error.status = response.status;
+    error.code = data.error?.code;
+
+    throw error;
   }
 
   return data;
@@ -39,12 +44,17 @@ const signup = async (name, email, password, confirmPassword) => {
     }),
   });
 
-  const data = response.json();
+  const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(
-      data.error?.message || `Signup failed (${response.status})`
+    const error = new Error(
+      data.error?.message || `Unable to create account`
     );
+
+    error.status = response.status;
+    error.code = data.error?.code;
+
+    throw error;
   }
 
   return data;
