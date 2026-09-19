@@ -35,7 +35,7 @@ function ClientFormModal({ client = null, onClose, onSuccess }) {
     name: client?.name || "",
     email: client?.email || "",
     phone: client?.phone || "",
-    netWorthAmount: client ? client.netWorth / 1000000 : "",
+    netWorthAmount: netWorthInput.amount,
     netWorthUnit: netWorthInput.unit,
     category: client?.category || "",
     primaryAssetClass: client?.primaryAssetClass || "",
