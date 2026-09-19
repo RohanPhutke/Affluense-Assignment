@@ -25,6 +25,9 @@ function Dashboard() {
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
 
+  const storedAdvisor = sessionStorage.getItem("advisor");
+  const advisor = storedAdvisor ? JSON.parse(storedAdvisor) : null;
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -49,6 +52,7 @@ function Dashboard() {
   const handleLogout = async () => {
     try {
       await authService.logout();
+      sessionStorage.removeItem("advisor");
       navigate("/login", { replace: true });
     } catch (error) {
       console.error("Logout failed:", error);
@@ -165,6 +169,10 @@ function Dashboard() {
             A quick view of your client portfolio and wealth distribution.
           </p>
         </div>
+
+        <p className="mt-2 text-sm text-slate-500">
+          Hi {advisor?.name || "there"}! Here's an overview of your client portfolio
+        </p>
 
         <div className="mt-8 grid gap-5 lg:grid-cols-2">
           <div className="flex flex-col gap-5">

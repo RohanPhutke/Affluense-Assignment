@@ -38,7 +38,9 @@ const Login = () => {
     setLoading(true);
 
     try {
-      await authService.login(email.trim(), password);
+      const data = await authService.login(email.trim(), password);
+      
+      sessionStorage.setItem("advisor", JSON.stringify(data.advisor));
       navigate("/dashboard");
     } catch (error) {
       setLoginError(error.message);

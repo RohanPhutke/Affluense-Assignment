@@ -56,12 +56,13 @@ function SignUp() {
     setLoading(true);
 
     try {
-      await authService.signup(
+      const data = await authService.signup(
         trimmedName,
         trimmedEmail,
         password,
         confirmPassword,
       );
+      sessionStorage.setItem("advisor", JSON.stringify(data.advisor));
 
       navigate("/dashboard");
     } catch (error) {
