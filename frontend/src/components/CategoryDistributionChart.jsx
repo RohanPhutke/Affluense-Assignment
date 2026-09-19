@@ -1,7 +1,21 @@
 import { Chart } from "@highcharts/react";
 import { PieSeries } from "@highcharts/react/series/Pie";
+import EmptyState from "./EmptyState";
 
 function CategoryDistributionChart({ distribution }) {
+
+    const total = (distribution?.HNI || 0) + (distribution?.UHNI || 0);
+
+    if(total === 0){
+        return (
+            <div className="h-[280px]">
+                <EmptyState
+                    title="No client data yet"
+                    message="Add clients to see the HNI and UHNI distribution."
+                />
+            </div>
+        )
+    }
     const data = [
         {
             name: "HNI",

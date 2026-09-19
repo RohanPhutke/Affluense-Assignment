@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { AgGridReact } from "ag-grid-react";
 import { AllCommunityModule } from "ag-grid-community";
+import EmptyState from "./EmptyState";
 
 import clientService from "../services/clientService";
 
@@ -168,6 +169,21 @@ function ClientTable({ onClientClick, refreshKey }) {
         {loading ? (
           <div className="flex h-full items-center justify-center">
             <p className="text-sm text-slate-500">Loading clients...</p>
+          </div>
+        ) : !loading && clients.length == 0 ? (
+          <div className="h-full">
+            <EmptyState
+              title={
+                search || category
+                  ? "No clients match your filters"
+                  : "No clients yet"
+              }
+              message={
+                search || category
+                  ? "Try changing your search or category filter."
+                  : "Add your first client to start building your portfolio."
+              }
+            />
           </div>
         ) : (
           <AgGridReact
