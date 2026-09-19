@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { AgGridReact } from "ag-grid-react";
 import { AllCommunityModule } from "ag-grid-community";
 import EmptyState from "./EmptyState";
+import Spinner from "./Spinner";
 
 import clientService from "../services/clientService";
 
@@ -168,7 +169,7 @@ function ClientTable({ onClientClick, refreshKey }) {
       <div className="h-[520px] w-full">
         {loading ? (
           <div className="flex h-full items-center justify-center">
-            <p className="text-sm text-slate-500">Loading clients...</p>
+            <Spinner size="md" text="Loading clients..." />
           </div>
         ) : !loading && clients.length == 0 ? (
           <div className="h-full">

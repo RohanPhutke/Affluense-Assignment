@@ -10,6 +10,7 @@ import ClientFormModal from "../components/ClientFormModal";
 import ClientDetailsModal from "../components/ClientDetailsModal";
 import DeleteConfirmModal from "../components/DeleteConfirmModal";
 import CategoryDistributionChart from "../components/CategoryDistributionChart";
+import Spinner from "../components/Spinner";
 
 import { formatNetWorth } from "../utils/formatters";
 
@@ -101,7 +102,7 @@ function Dashboard() {
   if (loading) {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <p className="text-sm text-slate-500">Loading dashboard...</p>
+        <Spinner size="md" text="Loading dashboard..." />
       </div>
     );
   }
@@ -171,7 +172,8 @@ function Dashboard() {
         </div>
 
         <p className="mt-2 text-sm text-slate-500">
-          Hi {advisor?.name || "there"}! Here's an overview of your client portfolio
+          Hi {advisor?.name || "there"}! Here's an overview of your client
+          portfolio
         </p>
 
         <div className="mt-8 grid gap-5 lg:grid-cols-2">
@@ -285,9 +287,9 @@ function Dashboard() {
       )}
 
       {loadingClient && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20">
-          <div className="rounded-lg bg-white px-5 py-3 text-sm shadow-lg">
-            Loading client...
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/20 backdrop-blur-[2px]">
+          <div className="rounded-xl border border-slate-200 bg-white px-6 py-5 shadow-xl">
+            <Spinner size="md" text="Loading client..." />
           </div>
         </div>
       )}
